@@ -33,15 +33,12 @@ struct GoalSelectionView: View {
                 
                 // MARK: - GOAL SELECTION SECTION
                 VStack(alignment: .leading, spacing: 20) {
-                    // Prompt Text
                     Text("Pick your goal")
                         .font(.custom(Fonts.primary, size: 24))
                         .foregroundColor(.white)
                         .padding(.horizontal, 20)
                     
-                    // Goal Buttons Grid
                     VStack(spacing: 2) {
-                        // Top Row
                         HStack(spacing: 12) {
                             GoalButton(
                                 emoji: Goal.sleep.emoji,
@@ -58,7 +55,6 @@ struct GoalSelectionView: View {
                             )
                         }
                         
-                        // Middle Row
                         HStack(spacing: 12) {
                             GoalButton(
                                 emoji: Goal.stress.emoji,
@@ -75,7 +71,6 @@ struct GoalSelectionView: View {
                             )
                         }
                         
-                        // Bottom Row
                         HStack(spacing: 12) {
                             GoalButton(
                                 emoji: Goal.focus.emoji,
@@ -84,7 +79,7 @@ struct GoalSelectionView: View {
                                 action: { viewModel.selectGoal(.focus) }
                             )
                             
-                            	GoalButton(
+                            GoalButton(
                                 emoji: Goal.selfLove.emoji,
                                 title: Goal.selfLove.rawValue,
                                 isSelected: viewModel.selectedGoals.contains(.selfLove),
@@ -92,40 +87,39 @@ struct GoalSelectionView: View {
                             )
                         }
                     }
-                  .padding(.horizontal, 20)
-//                    .padding(.top, 30)
-                    
-                    Spacer()
-                    
-                    // MARK: - BOTTOM SECTION (Progress + Arrow)
-                    HStack {
-                        // Progress Indicators
-                        HStack(spacing: 8) {
-                            Capsule()
-                                .fill(Color.white.opacity(0.3))
-                                .frame(width: 32, height: 8)
-                            
-                            Capsule()
-                                .fill(Color.white)
-                                .frame(width: 32, height: 8)
-                            
-                            Spacer()
-                        }
-                        
-                        // MARK: - REUSABLE ARROW BUTTON
-                        ArrowButton(action: { viewModel.navigateToNext() })
-                    }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 50)
                 }
+                .padding(.bottom, 32)
                 
+                // MARK: - BOTTOM SECTION (Progress + Arrow)
+                HStack {
+                    HStack(spacing: 8) {
+                        Capsule()
+                            .fill(Color.white.opacity(0.3))
+                            .frame(width: 24, height: 8)
+                        
+                        Capsule()
+                            .fill(Color.white)
+                            .frame(width: 24, height: 8)
+                        
+                        Capsule()
+                            .fill(Color.white.opacity(0.3))
+                            .frame(width: 24, height: 8)
+                        
+                        Spacer()
+                    }
+                    
+                    ArrowButton(action: { viewModel.navigateToNext() })
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 50)
             }
         }
         .onAppear {
             viewModel.loadVideo()
         }
         .fullScreenCover(isPresented: $viewModel.shouldNavigateToNext) {
-            BreathingExerciseView()
+            MoodSelectionView()
         }
         .alert(isPresented: $viewModel.showAlert) {
             Alert(

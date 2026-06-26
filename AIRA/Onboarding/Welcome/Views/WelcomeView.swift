@@ -72,11 +72,15 @@ struct WelcomeView: View {
                 HStack(spacing: 8) {
                     Capsule()
                         .fill(Color.white)
-                        .frame(width: 32, height: 8)
+                        .frame(width: 24, height: 8)
                     
                     Capsule()
                         .fill(Color.white.opacity(0.3))
-                        .frame(width: 32, height: 8)
+                        .frame(width: 24, height: 8)
+                    
+                    Capsule()
+                        .fill(Color.white.opacity(0.3))
+                        .frame(width: 24, height: 8)
                     
                     Spacer()
                 }
@@ -93,7 +97,7 @@ struct WelcomeView: View {
             }
         }
         .fullScreenCover(isPresented: $viewModel.shouldNavigateToMain) {
-            BreathingExerciseView()
+            GoalSelectionView()
         }
     }
 }

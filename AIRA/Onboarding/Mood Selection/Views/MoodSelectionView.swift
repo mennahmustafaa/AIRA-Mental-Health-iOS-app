@@ -13,7 +13,7 @@ struct MoodSelectionView: View {
     
     var body: some View {
         ZStack {
-            Color(hex: "FFFBF5") // Background color from image
+            Color(hex: "FFFBF5")
                 .ignoresSafeArea()
             
             VStack {
@@ -21,19 +21,11 @@ struct MoodSelectionView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
                         Spacer()
-                        Image("Aira") // Logo
+                        Image("Aira")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 168, height: 49)
-                            //.background(Color(red: 0.23, green: 0.23, blue: 0.23)) // User requested this but it might look odd if the logo has transparency on a light bg. Keeping it as requested if needed, but usually logos are transparent.
-                            // The user's snippet had .background(...) but also "with blacl background ovaled shape" for the arrow.
-                            // I'll assume the logo background was a copy-paste artifact or specific request.
-                            // Let's leave the background off for the logo unless it's a placeholder, as it usually looks bad on a light theme.
-                            // Wait, the user said "Image("Aira")... .background(...)". I will apply it but maybe with opacity 0 if that's what they meant for the arrow?
-                            // "Image("Aira").frame(...).background(...) // Gabarito..."
-                            // I'll stick to the frame.
                         Spacer()
-                        
                     }
                     
                     Spacer().frame(height: 40)
@@ -125,34 +117,54 @@ struct MoodSelectionView: View {
                 Spacer()
                 
                 // Footer
-                HStack {
-                    Spacer()
-                    
-                    // Custom Arrow Button
-                    Button(action: {
-                        viewModel.navigateToNext()
-                    }) {
-                        HStack(alignment: .top, spacing: 0) {
-                            Image("ArrowNext") // Assuming this is the asset name
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 24, height: 24)
-                        }
-                        .padding(.horizontal, 30)
-                        .padding(.vertical, 16)
-                        .background(
-                            Capsule()
-                                .fill(Color.black) // Black background as requested
-                        )
+                VStack(spacing: 16) {
+                    // Progress Indicators
+                    HStack(spacing: 8) {
+                        Capsule()
+                            .fill(Color.black.opacity(0.3))
+                            .frame(width: 24, height: 8)
+                        
+                        Capsule()
+                            .fill(Color.black.opacity(0.3))
+                            .frame(width: 24, height: 8)
+                        
+                        Capsule()
+                            .fill(Color.black)
+                            .frame(width: 24, height: 8)
+                        
+                        Spacer()
                     }
+                    .padding(.horizontal, 30)
+                    
+                    HStack {
+                        Spacer()
+                        
+                        // Custom Arrow Button
+                        Button(action: {
+                            viewModel.navigateToNext()
+                        }) {
+                            HStack(alignment: .top, spacing: 0) {
+                                Image("ArrowNext")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 24, height: 24)
+                            }
+                            .padding(.horizontal, 30)
+                            .padding(.vertical, 16)
+                            .background(
+                                Capsule()
+                                    .fill(Color.black)
+                            )
+                        }
+                    }
+                    .padding(.horizontal, 30)
+                    .padding(.bottom, 30)
                 }
-                .padding(.horizontal, 30)
-                .padding(.bottom, 30)
             }
         }
         .navigationBarHidden(true)
         .fullScreenCover(isPresented: $viewModel.shouldNavigateToNext) {
-            GoalSelectionView()
+            BreathingExerciseView()
         }
     }
 }

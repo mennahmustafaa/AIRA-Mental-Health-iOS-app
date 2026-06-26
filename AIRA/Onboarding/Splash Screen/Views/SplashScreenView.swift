@@ -29,7 +29,8 @@ struct SplashScreenView: View {
                 } else {
                     // Fallback: use system app icon
                     Image(systemName: "app.fill")
-                        .font(.system(size: 100))
+                        .font(.system(
+                            size: 100))
                         .foregroundColor(.accentColor)
                 }
             }
